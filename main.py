@@ -13,7 +13,7 @@ def index():
     if request.method == "GET":
         data = request.json
         print(data)
-        plot2d.Plot2D(x=[1, 2, 3], y=[4, 5, 6]).show()
+        return plot2d.Plot2D(x=[1, 2, 3], y=[4, 5, 6]).show()
     elif request.method == "POST":
         return jsonify({"message": "Hello World"})
 
