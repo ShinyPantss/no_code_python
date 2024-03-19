@@ -8,7 +8,7 @@ CORS(app)
 
 @app.route("/")
 def index():
-    return jsonify({"Choo Choo": "Welcome to your Flask app 🚅"})
+    return jsonify({"Emreye Selam": "Hayirli olsun kardes"})
 
 
 if __name__ == "__main__":
