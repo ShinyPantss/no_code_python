@@ -1,40 +1,46 @@
 import matplotlib.pyplot as plt
-import io
-from PIL import Image
+import matplotlib
+import numpy as np
+
+from dotenv import load_dotenv
+
+from supabase import create_client
+import os
 
 
-class Plot2D:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def plot(self):
-        # plot
-        plt.plot(self.x, self.y)
-
-    def show(self):
-        # Getting the current figure
-        fig = plt.gcf()
-
-        # Convert the figure to a PIL Image
-        buf = io.BytesIO()
-        fig.savefig(buf)
-        buf.seek(0)
-        img = Image.open(buf)
-
-        # Show the image
-        img.show()
+url: str = os.environ.get("SUPABASE_URL")
+print(url)
+key: str = os.environ.get("SUPABASE_KEY")
+supabase = create_client(url, key)
 
 
-# Creating list of Month and Share_buy for Plotting Line Graph
-Month = ["January", "February", "March"]
-Share_buy = [10, 17, 30]
+class ImageUploader:
+    def __init__(self):
+        pass
 
-# Create an instance of Plot2D class
-plotter = Plot2D(Month, Share_buy)
+    def create_and_upload_image(self):
+        matplotlib.use("Agg")
+        # Görüntü oluşturma
+        plt.ion()
+        x = np.linspace(0, 10, 100)
+        y = np.sin(x)
+        plt.plot(x, y)
+        plt.xlabel("x")
+        plt.ylabel("sin(x)")
+        plt.title("Sinüs Fonksiyonu")
 
-# Plot the data
-plotter.plot()
+        # Görüntüyü bir bayt akışına dönüştürme
+        x = plt.savefig("denemesinus.jpeg", format="jpeg")
+        with open("denemesinus.jpeg", "rb") as f:
+            byte_stream = f.read()
 
-# Show the plot
-plotter.show()
+            # Bayt akışını yükle
+            supabase.storage.from_("deneme").upload(
+                "denemesinus.jpeg",
+                byte_stream,
+                file_options={"content-type": "image/jpeg"},
+            )
+        link_of_image = supabase.storage.from_("deneme").get_public_url(
+            "denemesinus.jpeg"
+        )
+        return link_of_image
