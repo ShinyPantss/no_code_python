@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
 
-from dotenv import load_dotenv
 
 from supabase import create_client
 import os
