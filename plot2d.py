@@ -36,37 +36,35 @@ plotter = Plot2D(Month, Share_buy)
 # Plot the data
 plotter.plot()
 
-<<<<<<< Updated upstream
 # Show the plot
 plotter.show()
-=======
-    def create_and_upload_image(self):
-        matplotlib.use("Agg")
-        # Görüntü oluşturma
-        plt.ion()
-        x = np.linspace(0, 10, 100)
-        y = np.cos(x)
-        plt.plot(x, y)
-        plt.xlabel("x")
-        plt.ylabel("sin(x)")
-        plt.grid()
-        plt.title("emrenin grafiği")
-        
-        nameOFfile = "deneme_emre3.jpeg"
-        
-        # Görüntüyü bir bayt akışına dönüştürme
-        x = plt.savefig(nameOFfile, format="jpeg")
-        with open(nameOFfile, "rb") as f:
-            byte_stream = f.read()
+def create_and_upload_image(self):
+    matplotlib.use("Agg")
+    # Görüntü oluşturma
+    plt.ion()
+    x = np.linspace(0, 10, 100)
+    y = np.cos(x)
+    plt.plot(x, y)
+    plt.xlabel("x")
+    plt.ylabel("sin(x)")
+    plt.grid()
+    plt.title("emrenin grafiği")
 
-            # Bayt akışını yükle
-            supabase.storage.from_("deneme").upload(
-                nameOFfile,
-                byte_stream,
-                file_options={"content-type": "image/jpeg"},
-            )
-        link_of_image = supabase.storage.from_("deneme").get_public_url(
-            nameOFfile
+    nameOFfile = "deneme_emre3.jpeg"
+
+    # Görüntüyü bir bayt akışına dönüştürme
+    x = plt.savefig(nameOFfile, format="jpeg")
+    with open(nameOFfile, "rb") as f:
+        byte_stream = f.read()
+
+        # Bayt akışını yükle
+        supabase.storage.from_("deneme").upload(
+            nameOFfile,
+            byte_stream,
+            file_options={"content-type": "image/jpeg"},
         )
-        return link_of_image
->>>>>>> Stashed changes
+    link_of_image = supabase.storage.from_("deneme").get_public_url(
+        nameOFfile
+    )
+    return link_of_image
+
