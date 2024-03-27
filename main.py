@@ -10,10 +10,11 @@ CORS(app)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+
     if request.method == "GET":
-        data = request.json
-        print(data)
-        return plot2d.Plot2D(x=[1, 2, 3], y=[4, 5, 6]).show()
+        x = plot2d.ImageUploader()
+        url = x.create_and_upload_image()
+        return url
     elif request.method == "POST":
         return jsonify({"message": "Hello World"})
 
