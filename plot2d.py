@@ -22,6 +22,7 @@ class ImageUploader:
         # Görüntü oluşturma
         plt.ion()
         x = np.linspace(0, 10, 100)
+
         y = np.cos(x)
         plt.plot(x, y)
         plt.xlabel("x")
@@ -34,6 +35,7 @@ class ImageUploader:
         # Görüntüyü bir bayt akışına dönüştürme
         x = plt.savefig(nameOFfile, format="jpeg")
         with open(nameOFfile, "rb") as f:
+
             byte_stream = f.read()
 
             # Bayt akışını yükle
