@@ -22,24 +22,30 @@ class ImageUploader:
         # Görüntü oluşturma
         plt.ion()
         x = np.linspace(0, 10, 100)
-        y = np.sin(x)
+
+        y = np.cos(x)
         plt.plot(x, y)
         plt.xlabel("x")
         plt.ylabel("sin(x)")
-        plt.title("Sinüs Fonksiyonu")
+        plt.grid()
+        plt.title("emrenin grafiği")
+
+        nameOFfile = "deneme_emre3.jpeg"
 
         # Görüntüyü bir bayt akışına dönüştürme
-        x = plt.savefig("denemesinus.jpeg", format="jpeg")
-        with open("denemesinus.jpeg", "rb") as f:
+        x = plt.savefig(nameOFfile, format="jpeg")
+        with open(nameOFfile, "rb") as f:
+
             byte_stream = f.read()
 
             # Bayt akışını yükle
             supabase.storage.from_("deneme").upload(
-                "denemesinus.jpeg",
+                nameOFfile,
                 byte_stream,
                 file_options={"content-type": "image/jpeg"},
             )
         link_of_image = supabase.storage.from_("deneme").get_public_url(
-            "denemesinus.jpeg"
+            nameOFfile
         )
         return link_of_image
+
