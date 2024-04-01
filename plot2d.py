@@ -53,32 +53,6 @@ class ImageUploader:
         return link_of_image
 
 
-class SimplePlot:
-    def __init__(self, x_column=list(), y_column=list(), xLabel='x axis', yLabel=False, title='unnamed', lineWidth=1, grid=False):
-        self.x_column = x_column
-        self.y_column = y_column
-        self.xLabel = xLabel
-        self.yLabel = yLabel
-        self.title = title
-        self.lineWidth = lineWidth
-        self.grid = grid
-        pass
-
-    def simplePlot(self):
-        plt.style.use('_mpl-gallery')
-        fig, ax = plt.subplots()
-        ax.plot(self.x_column, self.y_column, linewidth=self.lineWidth)
-
-        ax.set_xlabel(self.xLabel)
-        ax.set_ylabel(self.yLabel)
-        ax.grid(self.grid)
-
-
-        ax.set(xlim=(0, 8), xticks=np.arange(min(self.x_column), max(self.x_column)),
-               ylim=(0, 8), yticks=np.arange(min(self.y_column), max(self.y_column)))
-        # the part above requires rearrange xlim ylim xticks yticks
-
-        plt.show()
 
 class BarPlot:
     def __init__(self, x_column=list(), y_column=list(), xLabel=False, yLabel=False, title='unnamed', lineWidth=1, grid=False):
