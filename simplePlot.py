@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
-
+import matplotlib
+import time
+import plot2d
 """
 X Axis Data  list[or like list types(numpy array etc.)]
 •	Not necessary <default range(len(y))>
@@ -27,7 +29,7 @@ class SimplePlot:
                  title='unnamed', xLabel='x axis', yLabel='y axis',
                  lineWidth=1, grid=False,
                  marker="", markersize=4):
-                # to obtain a visible marker result, min line width value must be 4
+                 # to obtain a visible marker result, min line width value must be 4
 
         if x_column is None:
             # if user does not prefer to enter x axis parameters,
@@ -47,6 +49,8 @@ class SimplePlot:
 
     def simplePlot(self):
         plt.style.use('_mpl-gallery')
+        matplotlib.use('agg')  # necessary
+        plt.ion()  # necessary
         fig, ax = plt.subplots()
 
         ax.plot(self.x_column, self.y_column, linewidth=self.lineWidth, marker=self.marker, markersize=self.markersize)
@@ -57,7 +61,7 @@ class SimplePlot:
         ax.set_ylabel(self.yLabel)
 
         # ax.linewidth(self.lineWidth)  # alias .set_lw(lw)
-        # ^^^^^^^^ There is no linewidth module,
+        # ^^^^^^^^ There is no linewidth module in plt lib,
         ax.grid(self.grid)
 
         # group 2
@@ -69,5 +73,8 @@ class SimplePlot:
         # ax.set(xlim=(0, 8), xticks=(min(self.x_column), max(self.x_column)),
         #       ylim=(0, 8), yticks=(min(self.y_column), max(self.y_column)))
         # the part above requires rearrange xlim ylim xticks yticks
-
-        plt.show()
+        graphName =str(time.time())
+        fig.savefig(graphName, format="jpeg")
+        simpleGraph = plot2d.ImageUploader(graphName)
+        return simpleGraph.create_and_upload_image()
+        # plt.show()

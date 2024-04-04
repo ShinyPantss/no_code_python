@@ -1,18 +1,47 @@
 import matplotlib.pyplot as plt
 import matplotlib
-import numpy as np
-
-
 from supabase import create_client
 import os
-
+from time import time
 
 url: str = os.environ.get("SUPABASE_URL")
-print(url)
 key: str = os.environ.get("SUPABASE_KEY")
 supabase = create_client(url, key)
 
 
+class ImageUploader:
+    def __init__(self, nameOFfile):
+        self.nameOFfile = nameOFfile
+        pass
+
+    def create_and_upload_image(self):
+        matplotlib.use('agg')  # necessary
+        plt.ion()
+        # Görüntüyü bir bayt akışına dönüştürme
+        plt.plot([1, 2, 3, 4])
+        name = str(time())
+        # x = plt.savefig(self.nameOFfile, format="jpeg") # test
+        plt.savefig(name, format="jpeg")  # name to self.nameOFfile
+        with open(name, "rb") as f:
+            byte_stream = f.read()
+
+            # Bayt akışını yükle
+            supabase.storage.from_("deneme").upload(
+                name,
+                byte_stream,
+                file_options={"content-type": "image/jpeg"},
+            )
+        link_of_image = supabase.storage.from_("deneme").get_public_url(
+            name
+        )
+        return link_of_image
+
+
+
+
+
+"""
+# Old version
 class ImageUploader:
     def __init__(self, xLabel=False, yLabel=False, title='unnamed', lineWidth=1, grid=False, ):
         self.xLabel = xLabel
@@ -81,3 +110,4 @@ class BarPlot:
 
         plt.show()
 
+"""
