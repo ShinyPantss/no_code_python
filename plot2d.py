@@ -11,6 +11,7 @@ supabase = create_client(url, key)
 
 class ImageUploader:
     def __init__(self, nameOFfile):
+        
         self.nameOFfile = nameOFfile
         pass
 
@@ -18,21 +19,24 @@ class ImageUploader:
         matplotlib.use('agg')  # necessary
         plt.ion()
         # Görüntüyü bir bayt akışına dönüştürme
-        plt.plot([1, 2, 3, 4])
-        name = str(time())
-        # x = plt.savefig(self.nameOFfile, format="jpeg") # test
-        plt.savefig(name, format="jpeg")  # name to self.nameOFfile
-        with open(name, "rb") as f:
+        # plt.plot([1, 2, 3, 4])
+        # name = str(time()) # the name of the graph file
+        
+        # x = plt.savefig(self.nameOFfile, format="jpeg") # tested -> not necessary
+        
+        plt.savefig(self.nameOFfile, format="jpeg")
+        
+        with open(self.nameOFfile, "rb") as f:
             byte_stream = f.read()
 
             # Bayt akışını yükle
             supabase.storage.from_("deneme").upload(
-                name,
+                self.nameOFfile,
                 byte_stream,
                 file_options={"content-type": "image/jpeg"},
             )
         link_of_image = supabase.storage.from_("deneme").get_public_url(
-            name
+            self.nameOFfile
         )
         return link_of_image
 
