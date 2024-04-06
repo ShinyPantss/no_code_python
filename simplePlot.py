@@ -48,7 +48,7 @@ class SimplePlot:
         pass
 
     def simplePlot(self):
-        plt.style.use('_mpl-gallery')
+        # plt.style.use('_mpl-gallery')
         matplotlib.use('agg')  # necessary
         plt.ion()  # necessary
         fig, ax = plt.subplots()
@@ -56,25 +56,19 @@ class SimplePlot:
         ax.plot(self.x_column, self.y_column, linewidth=self.lineWidth, marker=self.marker, markersize=self.markersize)
 
         # group 1 parameters(from graph doc classification)
-        ax.set_title(self.title)
-        ax.set_xlabel(self.xLabel)
-        ax.set_ylabel(self.yLabel)
+        plt.title(self.title)
+        plt.xlabel(self.xLabel)
+        plt.ylabel(self.yLabel)
 
         # ax.linewidth(self.lineWidth)  # alias .set_lw(lw)
         # ^^^^^^^^ There is no linewidth module in plt lib,
         ax.grid(self.grid)
 
-        # group 2
-        # ax.set_marker(self.marker)
-        # ax.set_markersize(self.markersize)
-        # ^^^^^^^^ There is no set_marker and set_markersize modules,
-        # these parameters has been set in ax.plot() above
-
-        # ax.set(xlim=(0, 8), xticks=(min(self.x_column), max(self.x_column)),
-        #       ylim=(0, 8), yticks=(min(self.y_column), max(self.y_column)))
-        # the part above requires rearrange xlim ylim xticks yticks
-        graphName =str(time.time())
-        fig.savefig(graphName, format="jpeg")
+        graphName = str(time.time()).replace(".","")+".jpeg"
+        # str(time.time()) --> 1234358745.2873263 
+        # --> to prevent python to misunderstand remove dot(.) by .replace(".","")
+        
+        plt.savefig(graphName, format="jpeg")
         simpleGraph = plot2d.ImageUploader(graphName)
         return simpleGraph.create_and_upload_image()
-        # plt.show()
+        
