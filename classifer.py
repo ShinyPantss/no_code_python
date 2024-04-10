@@ -5,6 +5,7 @@ import simplePlot
 
 class Classifer:
     def __init__(self, data):
+
         # self.plotType = data["plotType"]
         # self.data = data.data
         pass
