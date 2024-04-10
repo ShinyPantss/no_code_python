@@ -5,13 +5,13 @@ import simplePlot
 
 class Classifer:
     def __init__(self, data):
-        self.plotType = data["plotType"]
-        self.data = data.data
-
+        # self.plotType = data["plotType"]
+        # self.data = data.data
+        pass
     def classify(self):
+        self.plotType = "simplePlot"
         if self.plotType == "simplePlot":
-            plot = simplePlot.SimplePlot(self.data)
-            print("plot data", self.data)
+            plot = simplePlot.SimplePlot(data)
             url = plot.simplePlot()
             return url
         elif self.plotType == "scatterPlot":

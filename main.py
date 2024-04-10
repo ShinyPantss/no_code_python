@@ -23,16 +23,13 @@ def index():
         return "GET request recieved"
     elif request.method == "POST":
         data = request.get_json()
+        
+        print(f"\n\n\n\n\n{data}\n\n\n\n\n")
         plot = classifer.Classifer(data)
-        # plot = scatterPlot.ScatterPlot(
-        #     y_column=[randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)],
-        #     x_column=[randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)],
-        #     grid=True,
-        #     title=title,
-        # )
+        # title = data.get('title', 'unnamed')
         # url = plot.scatterPlot()
-        url = plot.classify("simplePlot")
-        print("\n\n\n\n\nurl ", url)
+        url = plot.classify()
+        print(f"\n\n\n\n\n{url}\n\n\n\n\n")
         return url
 
 

@@ -45,7 +45,7 @@ class SimplePlot:
         self.grid = grid
         self.marker = marker
         self.markersize = markersize
-        pass
+        
 
     def simplePlot(self):
         # plt.style.use('_mpl-gallery')
