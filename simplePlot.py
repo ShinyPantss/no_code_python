@@ -13,6 +13,8 @@ Labels and Title string
 •	ax.set_ylabel('y-axis')
 •	ax.set_title('the graph’)
 """
+paramterList = ["title", "Width", "xLabel", "yLabel", "grid", "color", "markerSize", "imageUrl", "errors"]
+
 """
 Notes For Web side:
 when x axis has been chosen as empty(no parameter), the user should see a warning below.
@@ -23,32 +25,55 @@ WARNING: x-axis has been arranged by getting reference the length of y axis para
 """
 
 
-class SimplePlot:
-    def __init__(self,
-                 x_column=None, y_column=list(),
-                 title='unnamed', xLabel='x axis', yLabel='y axis',
-                 lineWidth=1, grid=False,
-                 marker="", markersize=4):
-                 # to obtain a visible marker result, min line width value must be 4
+# %% old version
+# class SimplePlot:
+#     def __init__(self,
+#                  x_column=None, y_column=list(),
+#                  title='unnamed', xLabel='x axis', yLabel='y axis',
+#                  lineWidth=1, grid=False,
+#                  marker="", markersize=4):
+#                  # to obtain a visible marker result, min line width value must be 4
 
-        if x_column is None:
+#         if x_column is None:
+#             # if user does not prefer to enter x axis parameters,
+#             # x column will be arranged as the length of y axis parameters
+#             x_column = range(len(y_column))
+
+#         self.x_column = x_column
+#         self.y_column = y_column
+#         self.xLabel = xLabel
+#         self.yLabel = yLabel
+#         self.title = title
+#         self.lineWidth = lineWidth
+#         self.grid = grid
+#         self.marker = marker
+#         self.markersize = markersize
+paramtersList = ["title", "Width", "xLabel", "yLabel", "grid", "color", "markerSize", "imageUrl", "errors"]
+
+
+class SimplePlot:
+    def __init__(self, y_column=[1, 2, 3, 4], data=None):
+
+        self.data = data["data"]
+        self.y_column = y_column
+        self.x_column = self.data.get("x_column", None)
+        self.title = self.data.get("title", 'unname')
+        self.xLabel = self.data.get("xLabel", 'x axis')
+        self.yLabel = self.data.get("yLabel", 'y axis')
+        self.lineWidth = self.data.get("Width", 1)
+        self.grid = self.data.get("grid", False)
+        self.marker = self.data.get("marker", "")
+        self.markersize = self.data.get("markersize", 4)  # to obtain a visible marker result, min line width value must be 4
+        # other parameters can be added
+        
+        if self.x_column is None:
             # if user does not prefer to enter x axis parameters,
             # x column will be arranged as the length of y axis parameters
-            x_column = range(len(y_column))
+            self.x_column = range(len(y_column))
 
-        self.x_column = x_column
-        self.y_column = y_column
-        self.xLabel = xLabel
-        self.yLabel = yLabel
-        self.title = title
-        self.lineWidth = lineWidth
-        self.grid = grid
-        self.marker = marker
-        self.markersize = markersize
-        
 
     def simplePlot(self):
-        # plt.style.use('_mpl-gallery')
+        
         matplotlib.use('agg')  # necessary
         plt.ion()  # necessary
         fig, ax = plt.subplots()
@@ -66,7 +91,7 @@ class SimplePlot:
 
         graphName = str(time.time()).replace(".","")+".jpeg"
         # str(time.time()) --> 1234358745.2873263 
-        # --> to prevent python to misunderstand remove dot(.) by .replace(".","")
+        # --> to prevent python to misunderstand remove dot(.) by replace(".","")
         
         plt.savefig(graphName, format="jpeg")
         simpleGraph = plot2d.ImageUploader(graphName)

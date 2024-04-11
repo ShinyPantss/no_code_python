@@ -4,27 +4,24 @@ import time
 import matplotlib
 
 class BarPlot:
-    def __init__(self, x_column=None, y_column=list(),
-                 title='unnamed', xLabel='x axis', yLabel='y axis',
-                 width=0.8, grid=False):
+    def __init__(self, data, y_column=[1, 2, 3]):
 
-        if x_column is None:
+        self.data = data["data"]
+        self.y_column = y_column
+        self.x_column = self.data.get("x_column", None)
+        self.title = self.data.get("title", 'unnamed')
+        self.xLabel = self.data.get("xLabel", 'x axis')
+        self.yLabel = self.data.get("yLabel", 'y axis')
+        self.width = [self.data.get("Width", 0.8)]*len(y_column)  # for each bar needs one width value
+        self.grid = self.data.get("grid", False)
+        # other parameters can be added
+        
+        if self.x_column is None:
             # if user does not prefer to enter x axis parameters,
             # x column will be arranged as the length of y axis parameters
-            x_column = range(len(y_column))
-
-        self.x_column = x_column
-        self.y_column = y_column
-        self.xLabel = xLabel
-        self.yLabel = yLabel
-        self.title = title
-        self.width = [width for each in range(len(y_column))]
-        # for each bar needs one width value
-        self.grid = grid
-        pass
+            self.x_column = range(len(y_column))
 
     def barPlot(self):
-        # plt.style.use('_mpl-gallery')
         matplotlib.use('agg')  # necessary
         plt.ion()  # necessary
         

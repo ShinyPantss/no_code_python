@@ -3,29 +3,42 @@ import plot2d
 import time
 import matplotlib
 
-class ScatterPlot:
-    def __init__(self, x_column=list(), y_column=list(),
-                 title='unnamed', xLabel='x axis', yLabel='y axis',
-                 markerSize=15, grid=False):
+    # %% old version
+    # def __init__(self, x_column=list(), y_column=list(),
+    #              title='unnamed', xLabel='x axis', yLabel='y axis',
+    #              markerSize=15, grid=False):
 
+    #     self.x_column = x_column
+    #     self.y_column = y_column
+    #     self.xLabel = xLabel
+    #     self.yLabel = yLabel
+    #     self.title = title
+    #     self.markerSize = [markerSize for each in range(len(y_column))]
+    #     # for each bar needs one width value
+    #     self.grid = grid
+    
+class ScatterPlot:
+    def __init__(self, data, x_column=[1, 2, 3], y_column=[1, 2, 3]):
+        
+        self.data = data["data"]
         self.x_column = x_column
         self.y_column = y_column
-        self.xLabel = xLabel
-        self.yLabel = yLabel
-        self.title = title
-        self.markerSize = [markerSize for each in range(len(y_column))]
-        # for each bar needs one width value
-        self.grid = grid
-        pass
-
+        self.title = self.data.get("title", 'unnamed')
+        self.xLabel = self.data.get("xLabel", 'x axis')
+        self.yLabel = self.data.get("yLabel", 'y axis')
+        self.markerSize = [self.data.get("markerSize", 15)]*len(y_column)  # for each bar needs one width value
+        self.grid = self.data.get("grid", False)
+        self.color = self.data.get("color", "blue")
+        # other parameters can be added
+        
     def scatterPlot(self):
-        # plt.style.use('_mpl-gallery')
+
         matplotlib.use('agg')  # necessary
         plt.ion()  # necessary
         
         fig, ax = plt.subplots()
         
-        ax.scatter(self.x_column, self.y_column, s=self.markerSize)
+        ax.scatter(self.x_column, self.y_column, s=self.markerSize,c=self.color)
 
         plt.title(self.title)
         plt.xlabel(self.xLabel)
