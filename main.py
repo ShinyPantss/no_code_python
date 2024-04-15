@@ -12,27 +12,19 @@ CORS(app)
 def index():
 
     if request.method == "GET":
-        # data = request.title
-        # print(data)
-        # x = plot2d.ImageUploader()
-        # print("name----->",x.nameOFfile)
-        # url = x.create_and_upload_image()
-        # plot = simplePlot.SimplePlot(y_column=[randint(1,10),randint(1,10),randint(1,10),randint(1,10)])
-        # url = plot.simplePlot()
-        # return url
         return "GET request recieved"
+    
     elif request.method == "POST":
-        data = request.get_json()
-        classifer(data)
-        # plot = scatterPlot.ScatterPlot(
-        #     y_column=[randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)],
-        #     x_column=[randint(1, 10), randint(1, 10), randint(1, 10), randint(1, 10)],
-        #     grid=True,
-        #     title=title,
-        # )
-        # url = plot.scatterPlot()
-        return "geldi"
 
+        data = request.get_json()
+        
+        print(f"\n\n\n\n\n{data}\n\n\n\n\n")
+        plot = classifer.Classifer(data)
+
+        url = plot.classify()
+        print(f"\n\n\n\n\n{url}\n\n\n\n\n")
+        
+        return url
 
 if __name__ == "__main__":
     app.run(debug=True, port=os.getenv("PORT", default=5000))

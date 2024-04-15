@@ -5,17 +5,27 @@ import simplePlot
 
 class Classifer:
     def __init__(self, data):
-        self.plotType = data["plotType"]
-        self.data = data.data
-        pass
 
+        self.plotType = data.get("plotType", None)
+        self.data = data
+        
     def classify(self):
+        
         if self.plotType == "simplePlot":
-
-            return simplePlot.SimplePlot(self.data)
-        elif self.plotType == "scatterPlot":
-            return "scatter"
+            
+            plot = simplePlot.SimplePlot(data=self.data)
+            url = plot.simplePlot()
+            
         elif self.plotType == "barPlot":
-            return "bar"
+            
+            plot = barPlot.BarPlot(data=self.data)
+            url = plot.barPlot()
+            
+        elif self.plotType == "scatterPlot":
+            plot = scatterPlot.ScatterPlot(data=self.data)
+            url = plot.scatterPlot()
+            
         else:
-            return "invalid plot type"
+            url = "invalid plot type"
+            
+        return url
