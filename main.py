@@ -19,12 +19,13 @@ def index():
     elif request.method == "POST":
 
         data = request.get_json()
+        print(data)
 
-        plot = classifer.Classifer(data)
+        # plot = classifer.Classifer(data)
 
-        url = plot.classify()
+        # url = plot.classify()
 
-        return jsonify(url)
+        return jsonify(data)
 
 
 if __name__ == "__main__":
