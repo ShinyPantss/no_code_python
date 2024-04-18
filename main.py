@@ -4,6 +4,7 @@ import os
 from random import randint
 import classifer
 from flask import jsonify
+
 import datasetpuller
 
 app = Flask(__name__)
@@ -16,8 +17,9 @@ def index():
     if request.method == "GET":
 
         return "GET request recieved"
-    
+
     elif request.method == "POST":
+
         data = request.get_json()
 
         plot = classifer.Classifer(data)
