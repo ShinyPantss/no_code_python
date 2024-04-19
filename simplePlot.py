@@ -19,7 +19,7 @@ class SimplePlot:
         self.yLabel = self.data.get("yLabel", 'y axis')
         
         # group 3 parameters - lineWidth, grid
-        self.lineWidth = self.data.get("Width", 1)
+        self.lineWidth = self.data.get("lineWidth", 1)
         self.grid = self.data.get("grid", False)
         
         # group 4 parameters - marker, markersize
