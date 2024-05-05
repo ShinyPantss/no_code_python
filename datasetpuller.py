@@ -34,12 +34,17 @@ class DSpull:
         else:
             error = f"Request failed with status code {self.response.status_code}"
             return error
+        
+    def get_columns_updated_data(self);
+        
+        
+        
 
     def update_columns_in_supabase(self, ):
         columns_filtered = self.get_columns()
         if isinstance(columns_filtered, list):
             
-            response = supabase.table("Data_Api").update({"dataColumnNames": columns_filtered}).eq("data_api", self.url).execute()
+            response = supabase.table("DataSets").update({"dataColumnNames": columns_filtered}).eq("data_api", self.url).execute()
             return response.data, response.status_code
         else:
             return columns_filtered
