@@ -45,10 +45,8 @@ class BarPlot:
         plt.grid(self.grid)
         ax.set_axisbelow(True)  # this line provides to take grids to back of bars
         # ax.yaxis.grid(color='gray', linestyle='-', linewidth=0.5)
-
         
         graphName = str(time.time()).replace(".","")+".jpeg"
-        plt.savefig(graphName, format="jpeg")
         
         barGraph = plot2d.ImageUploader(graphName)
         return barGraph.create_and_upload_image()

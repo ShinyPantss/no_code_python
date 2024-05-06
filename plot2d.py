@@ -3,6 +3,7 @@ import matplotlib
 from supabase import create_client
 import os
 from time import time
+from deleter import del_current_img
 
 url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
@@ -19,10 +20,6 @@ class ImageUploader:
         matplotlib.use('agg')  # necessary
         plt.ion()
         # Görüntüyü bir bayt akışına dönüştürme
-        # plt.plot([1, 2, 3, 4])
-        # name = str(time()) # the name of the graph file
-        
-        # x = plt.savefig(self.nameOFfile, format="jpeg") # tested -> not necessary
         
         plt.savefig(self.nameOFfile, format="jpeg")
         
@@ -38,6 +35,9 @@ class ImageUploader:
         link_of_image = supabase.storage.from_("deneme").get_public_url(
             self.nameOFfile
         )
+        
+        del_current_img(self.nameOFfile)  # delete the graph image after uploading it from the local(railway server)
+        
         return link_of_image
 
 

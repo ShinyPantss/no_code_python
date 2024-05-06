@@ -43,7 +43,6 @@ class ScatterPlot:
         # ax.yaxis.grid(color='gray', linestyle='-', linewidth=0.5)
         
         graphName = str(time.time()).replace(".","")+".jpeg"
-        plt.savefig(graphName, format="jpeg")
         
         scatterGraph = plot2d.ImageUploader(graphName)
         return scatterGraph.create_and_upload_image()
