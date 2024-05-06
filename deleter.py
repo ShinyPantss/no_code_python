@@ -44,3 +44,4 @@ def del_current_img(fileName):
     except OSError as e:
         print(f"Error: {fileName} - {e.strerror}")
         
+
