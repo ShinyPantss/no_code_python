@@ -55,7 +55,7 @@ class SimplePlot:
         # str(time.time()) --> 1234358745.2873263 
         # --> to prevent python to misunderstand remove dot(.) by replace(".","")
         
-        plt.savefig(graphName, format="jpeg")
+        # plt.savefig(graphName, format="jpeg") creating fig is in imageuploader
         simpleGraph = plot2d.ImageUploader(graphName)
         
         return simpleGraph.create_and_upload_image()
