@@ -4,19 +4,22 @@ import time
 import plot2d
 
 class SimplePlot:
-    def __init__(self, y_column=[1, 2, 3, 4], data=None):
+    def __init__(self, data=None):
         # data is a dictionary that contains all parameters
 
+
         self.data = data["data"]
-        
+        print("\n\n\n\n\n\n\n\n\ndata:  ",data,"\n\n\n\n\n\n\n\n\n")
+        print("self.data:   ",self.data,"\n\n\n\n\n\n\n\n\n")
         # group 1 parameters - y axis parameters and x axis parameters
-        self.y_column = y_column  # requires update
-        self.x_column = self.data.get("x_column", None)
+        self.y_column = self.data.get("yColumn", None)
+        self.x_column = self.data.get("xColumn", None)
+        
         
         # group 2 parameters -  title, xLabel, yLabel
-        self.title = self.data.get("title", 'unname')
-        self.xLabel = self.data.get("xLabel", 'x axis')
-        self.yLabel = self.data.get("yLabel", 'y axis')
+        self.title = self.data.get("title", 'grafik')
+        self.xLabel = self.data.get("xLabel", 'x ekseni')
+        self.yLabel = self.data.get("yLabel", 'y ekseni')
         
         # group 3 parameters - lineWidth, grid
         self.lineWidth = self.data.get("lineWidth", 1)
@@ -30,7 +33,7 @@ class SimplePlot:
         if self.x_column is None:
             # if user does not prefer to enter x axis parameters,
             # x column will be arranged as the length of y axis parameters
-            self.x_column = range(len(y_column))
+            self.x_column = range(len(self.y_column))
 
 
     def simplePlot(self):
