@@ -41,8 +41,9 @@ class ImageUploader:
         return link_of_image
 
 
-
-
+"""response = supabase.table('DataSets').insert({"data_name":"deneme2"}).execute()
+print(response)
+"""
 
 """
 # Old version
