@@ -7,10 +7,6 @@ class DSpull:
     def __init__(self, api):
         self.url = api
         self.response = requests.get(api)
-
-    def xyColumn(self, xyColumnNames):
-        xColumnData = xyColumnNames[0]
-        yColumnData = xyColumnNames[1]
         
     def get(self, type = "dataset"):
         if self.response.status_code == 200:
