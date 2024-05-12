@@ -21,7 +21,7 @@ def is_a_graph_img(fileFullName):  # fileFullName is a list that contains file n
         return False
 
     except IndexError:
-        print("not a graph img Index Error")
+        print("a folder or no extension Index Error")
         return False
 
 def stock_cleaner():
@@ -45,3 +45,4 @@ def del_current_img(fileName):
         print(f"Error: {fileName} - {e.strerror}")
         
 
+# stock_cleaner()  # delete all old graph images

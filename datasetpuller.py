@@ -7,8 +7,12 @@ class DSpull:
     def __init__(self, api):
         self.url = api
         self.response = requests.get(api)
+
+
         
     def get(self, type = "dataset"):
+      
+
         if self.response.status_code == 200:
             # Parse the response as JSON
             self.data = json.loads(self.response.text)
@@ -23,10 +27,12 @@ class DSpull:
             columns_filtered = [columns[i] for i in range(len(columns)) if i not in indexesOFID]
             # above line removes the columns that have "ID" in their name from the list of columns
             
+
             if type == "dataset":
                 return df
             elif type == "columns":
                 return columns_filtered
+
 
         else:
             error = f"Request failed with status code {self.response.status_code}"

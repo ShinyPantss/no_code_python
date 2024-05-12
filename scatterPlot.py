@@ -6,11 +6,12 @@ import matplotlib
 class ScatterPlot:
     def __init__(self, data, x_column=[1, 2, 3], y_column=[1, 2, 3]):
         
-        self.data = data["data"]
+        self.mainDATA = data
+        self.data = self.mainDATA["data"]  # data is a dictionary that contains all parameters except the x and y column data
         
         # group 1 parameters - y axis parameters and x axis parameters
-        self.x_column = x_column
-        self.y_column = y_column
+        self.y_column = self.mainDATA.get("yColumnData", None)  # warning: x and y column data is not in data["data"], they are in data <mainDATA>
+        self.x_column = self.mainDATA.get("xColumnData", None)
         
         # group 2 parameters -  title, xLabel, yLabel
         self.title = self.data.get("title", 'unnamed')
@@ -18,7 +19,7 @@ class ScatterPlot:
         self.yLabel = self.data.get("yLabel", 'y axis')
         
         # group 3 parameters - markerSize, grid, color
-        self.markerSize = [self.data.get("markerSize", 15)]*len(y_column)  # for each bar needs one width value
+        self.markerSize = [self.data.get("markerSize", 15)]*len(self.y_column)  # for each bar needs one width value
         self.grid = self.data.get("grid", False)
         self.color = self.data.get("color", "blue")
         # other parameters can be added

@@ -4,13 +4,15 @@ import time
 import matplotlib
 
 class BarPlot:
-    def __init__(self, data, y_column=[1, 2, 3]):
+    def __init__(self, data=None):
 
-        self.data = data["data"]
+        self.mainDATA = data
+        self.data = self.mainDATA["data"]  # data is a dictionary that contains all parameters except the x and y column data
         
         # group 1 parameters - y axis parameters and x axis parameters
-        self.y_column = y_column
-        self.x_column = self.data.get("x_column", None)
+        self.y_column = self.mainDATA.get("yColumnData", None)  # warning: x and y column data is not in data["data"], they are in data <mainDATA>
+        self.x_column = self.mainDATA.get("xColumnData", None)
+        
         
         # group 2 parameters -  title, xLabel, yLabel
         self.title = self.data.get("title", 'unnamed')
@@ -18,14 +20,14 @@ class BarPlot:
         self.yLabel = self.data.get("yLabel", 'y axis')
         
         # group 3 parameters - width, grid
-        self.width = [self.data.get("Width", 0.8)]*len(y_column)  # for each bar needs one width value
+        self.width = [self.data.get("Width", 0.8)]*len(self.y_column)  # for each bar needs one width value
         self.grid = self.data.get("grid", False)
         # other parameters can be added
         
         if self.x_column is None:
             # if user does not prefer to enter x axis parameters,
             # x column will be arranged as the length of y axis parameters
-            self.x_column = range(len(y_column))
+            self.x_column = range(len(self.y_column))
 
     def barPlot(self):
         # summary: this function creates a bar plot graph and returns the image url
