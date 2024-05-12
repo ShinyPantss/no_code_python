@@ -16,9 +16,9 @@ class DSpull:
         self.url = api
         self.response = requests.get(api)
 
-
-   
-    def get_columns(self):
+        
+    def get(self, type = "dataset"):
+      
         if self.response.status_code == 200:
             # Parse the response as JSON
             self.data = json.loads(self.response.text)
@@ -28,9 +28,14 @@ class DSpull:
             indexes_of_id = [index for index, column in enumerate(columns) if "ID" in column]
             columns_filtered = [column for index, column in enumerate(columns) if index not in indexes_of_id]
             
-            print(self.response)
 
+            if type == "dataset":
+                return df
+            elif type == "columns":
+                return columns_filtered
+              
             return columns_filtered
+          
         else:
             error = f"Request failed with status code {self.response.status_code}"
             return error
@@ -51,7 +56,8 @@ class DSpull:
         
 
 # Example usage
-def tester(url = "https://zircon.datausa.io/api/data?drilldowns=Year&measures=Average%20Wage&Workforce%20Status=true"):
+def tester(url = "url"):
+    # https://zircon.datausa.io/api/data?drilldowns=Year&measures=Average%20Wage&Workforce%20Status=true
     # Make a request to the API
     response = requests.get(url)
 
